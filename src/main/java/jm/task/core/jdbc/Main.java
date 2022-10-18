@@ -24,9 +24,9 @@ public class Main {
         System.out.println("User с именем Панам добавлен в базу данных");
 
         userDao.removeUserById(1);
-        userDao.getAllUsers();
+        /*userDao.getAllUsers();
         userDao.cleanUsersTable();
-        userDao.dropUsersTable();
+        userDao.dropUsersTable();*/
 
     }
 }
