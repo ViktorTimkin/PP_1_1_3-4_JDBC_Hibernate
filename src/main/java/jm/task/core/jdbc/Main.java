@@ -1,32 +1,32 @@
 package jm.task.core.jdbc;
 
-import jm.task.core.jdbc.dao.UserDao;
-import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
+import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.service.UserService;
+import jm.task.core.jdbc.service.UserServiceImpl;
+
 import java.sql.SQLException;
+import java.util.List;
 
 public class Main {
+    private static final UserService userService = new UserServiceImpl();
     public static void main(String[] args) throws SQLException {
 
-        UserDao userDao = new UserDaoJDBCImpl();
+        userService.createUsersTable();
 
-        userDao.createUsersTable();
+        userService.saveUser("Ви", "Смитт", (byte) 27);
+        userService.saveUser("Джеки", "Уэллс", (byte) 30);
+        userService.saveUser("Джонни", "Сильверхенд", (byte) 88);
+        userService.saveUser("Панам", "Палмер", (byte) 26);
+        userService.saveUser("Виктор", "Вектор", (byte) 40);
 
-        userDao.saveUser("Ви", "Смитт", (byte) 27);
-        System.out.println("User с именем Ви добавлен в базу данных");
+        List <User> users = userService.getAllUsers();
+        for (User user:users) {
+            System.out.println(user);
+        }
 
-        userDao.saveUser("Джеки", "Уэллс", (byte) 30);
-        System.out.println("User с именем Джеки добавлен в базу данных");
-
-        userDao.saveUser("Джонни", "Сильверхенд", (byte) 88);
-        System.out.println("User с именем Джонни добавлен в базу данных");
-
-        userDao.saveUser("Панам", "Палмер", (byte) 26);
-        System.out.println("User с именем Панам добавлен в базу данных");
-
-        userDao.removeUserById(1);
-        /*userDao.getAllUsers();
-        userDao.cleanUsersTable();
-        userDao.dropUsersTable();*/
+        userService.removeUserById(1);
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
 
     }
 }

@@ -52,7 +52,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void saveUser(String name, String lastName, byte age) throws SQLException {
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO CyberpunkUsers (name, lastname, age) VALUES (?, ?, ?)")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO new_schema.CyberpunkUsers (name, lastname, age) VALUES (?, ?, ?)")) {
             connection.setAutoCommit(false);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
@@ -72,7 +72,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void removeUserById(long id) throws SQLException {
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM CyberpunkUsers WHERE id = ?")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM new_schema.CyberpunkUsers WHERE id = ?")) {
             connection.setAutoCommit(false);
             preparedStatement.setLong(1, id);
             connection.commit();
@@ -89,7 +89,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM CyberpunkUsers")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM new_schema.CyberpunkUsers")) {
             connection.setAutoCommit(false);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -108,7 +108,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void cleanUsersTable() throws SQLException {
         try (Statement statement = connection.createStatement()) {
             connection.setAutoCommit(false);
-            statement.execute("DELETE FROM CyberpunkUsers");
+            statement.execute("DELETE FROM new_schema.CyberpunkUsers");
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
